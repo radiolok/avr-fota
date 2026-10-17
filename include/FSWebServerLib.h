@@ -214,6 +214,10 @@ public:
     strMetarConfig    _metarConfig; // METAR configuration
 
     String getMetar();
+    // used by applications (e.g. krams_metar_display) to keep their own config and pages
+    bool save_jsonDoc(const JsonDocument& jsonDoc, const String& file);
+    bool load_jsonDoc(const String& file, JsonDocument& jsonDoc);
+    bool handleFileRead(String path, AsyncWebServerRequest *request);
 
 private:
 	JSON_CALLBACK_SIGNATURE;
@@ -292,8 +296,6 @@ protected:
     //udp
     void udpTest(AsyncWebServerRequest *request) ;
 
-    bool save_jsonDoc(const JsonDocument& jsonDoc, const String& file);
-    bool load_jsonDoc(const String& file, JsonDocument& jsonDoc);
     //metar
     bool load_config_metar();
     bool save_config_metar();
@@ -345,7 +347,6 @@ protected:
     bool checkAuth(AsyncWebServerRequest *request);
     void handleFileList(AsyncWebServerRequest *request);
     //void handleFileRead_edit_html(AsyncWebServerRequest *request);
-    bool handleFileRead(String path, AsyncWebServerRequest *request);
     void handleFileCreate(AsyncWebServerRequest *request);
     void handleFileDelete(AsyncWebServerRequest *request);
 
